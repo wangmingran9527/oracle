@@ -58,3 +58,5 @@ SQL>SELECT a.tablespace_name "表空间名",Total/1024/1024 "大小MB",<br>
         group  BY tablespace_name)b<br>
  where  a.tablespace_name = b.tablespace_name;<br>
  $[image]()
+ SQL-DEVELOPER修改用户的操作界面：
+ $[image]()
