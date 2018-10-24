@@ -11,9 +11,9 @@ SQL> ALTER USER new_wang9527 QUOTA 50M ON users;<br>
 User altered.<br>
 SQL> GRANT con_res1_view TO new_wang9527;<br>
 Grant succeeded.<br>
-SQL> exit<br><br><br>
-
-
+SQL> exit<br>
+ ![image](https://github.com/wangmingran9527/oracle/blob/master/test2/oracle1.PNG)<br>
+ ![image](https://github.com/wangmingran9527/oracle/blob/master/test2/oracle2.PNG)<br><br><br>
 第2步：新用户new_user连接到pdborcl，创建表mytable和视图myview，插入数据，最后将myview的SELECT对象权限授予hr用户。<br>
 $ sqlplus new_wang9527/123@pdborcl<br>
 SQL> show user;<br>
@@ -57,8 +57,8 @@ SQL>SELECT a.tablespace_name "表空间名",Total/1024/1024 "大小MB",<br>
        (SELECT tablespace_name,Sum(bytes)total FROM dba_data_files<br>
         group  BY tablespace_name)b<br>
  where  a.tablespace_name = b.tablespace_name;<br>
- $[image]()
+ ![image]()
  SQL-DEVELOPER修改用户的操作界面：<br>
- $[image](https://github.com/wangmingran9527/oracle/blob/master/test2/3.PNG)<br>
+ ![image](https://github.com/wangmingran9527/oracle/blob/master/test2/3.PNG)<br>
  sqldeveloper授权对象的操作界面：<br>
- $[image](https://github.com/wangmingran9527/oracle/blob/master/test2/5.PNG)<br>
+ ![image](https://github.com/wangmingran9527/oracle/blob/master/test2/5.PNG)<br>
