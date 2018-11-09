@@ -43,44 +43,32 @@ PARTITION partition_before_2018 VALUES LESS THAN (
 TO_DATE(' 2018-01-01 00: 00: 00', 'SYYYY-MM-DD HH24: MI: SS',
 'NLS_CALENDAR=GREGORIAN'))TABLESPACE USERS02
 );
+![image](https://github.com/wangmingran9527/oracle/blob/master/test3/2.PNG)
 
 
+创建order_details表的语句如下：
 
-创建order_details表的部分语句如下：
-
-SQL> CREATE TABLE order_details 
+CREATE TABLE order_details
 (
-id NUMBER(10, 0) NOT NULL 
-, order_id NUMBER(10, 0) NOT NULL
-, product_id VARCHAR2(40 BYTE) NOT NULL 
-, product_num NUMBER(8, 2) NOT NULL 
-, product_price NUMBER(8, 2) NOT NULL 
-, CONSTRAINT order_details_fk1 FOREIGN KEY  (order_id)
-REFERENCES orders  (  order_id   )
-ENABLE 
-) 
-TABLESPACE USERS 
-PCTFREE 10 INITRANS 1 
-STORAGE (   BUFFER_POOL DEFAULT ) 
+id NUMBER(10,0)NOT NULL,
+order_id NUMBER(10,0)NOT NULL,
+product_id VARCHAR2(40 BYTE)NOT NULL,
+product_num NUMBER(8,2) NOT NULL,
+product_price NUMBER(8,2) NOT NULL,
+CONSTRAINT order_details_fk1 FOREIGN KEY (order_id)
+REFERENCES orders ( order_id )
+ENABLE
+)
+TABLESPACE USERS
+PCTFREE 10 
+INITRANS 1
+STORAGE( BUFFER_POOL DEFAULT )
 NOCOMPRESS NOPARALLEL
-PARTITION BY REFERENCE (order_details_fk1)
-(
-PARTITION PARTITION_BEFORE_2016 
-NOLOGGING 
-TABLESPACE USERS --必须指定表空间,否则会将分区存储在用户的默认表空间中
-PCTFREE 10 
- INITRANS 1 
- STORAGE
-) 
-NOCOMPRESS NO INMEMORY, 
-PARTITION PARTITION_BEFORE_2017 
-NOLOGGING 
-TABLESPACE USERS02
-PCTFREE 10 
- INITRANS 1 
- STORAGE
-) 
-NOCOMPRESS NO INMEMORY  
-);
+PARTITION BY REFERENCE (order_details_fk1);
+![image](https://github.com/wangmingran9527/oracle/blob/master/test3/3.PNG)
 ## 录入代码
 ```sql
+INSERT INTO orders(order_id,customer_name, customer_tel, order_date, employee_id, trade_receivable, discount) VALUES('001','wangmingrang', '1828385', to_date ( '2016-12-20 18:31:34' , 'YYYY-MM-DD HH24:MI:SS' ), 001, 111, 222);
+![image](https://github.com/wangmingran9527/oracle/blob/master/test3/4.PNG)
+![image](https://github.com/wangmingran9527/oracle/blob/master/test3/6.PNG)
+
