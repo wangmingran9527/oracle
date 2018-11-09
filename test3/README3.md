@@ -14,12 +14,12 @@
 ## 实验步骤
 在主表orders和从表order_details之间建立引用分区 在study用户中创建两个表：orders（订单表）和order_details（订单详表），两个表通过列order_id建立主外键关联。orders表按范围分区进行存储，order_details使用引用分区进行存储。 创建orders表的部分语句是：
 ```sql
-SQL> CREATE TABLE COLUM1
+CREATE TABLE order3
 (
-colum1_id NUMBER(10,0)NOT NULL,
+order_id NUMBER(10,0)NOT NULL,
 customer_name VARCHAR2(40 BYTE)NOT NULL,
 customer_tel VARCHAR2(40 BYTE)NOT NULL,
-colum1_date DATE NOT NULL,
+order_date DATE NOT NULL,
 employee_id NUMBER(6,0) NOT NULL,
 discount NUMBER(8,2)DEFAULT 0,
 trade_receivable NUMBER(8,2)DEFAULT 0
@@ -31,7 +31,7 @@ STORAGE
 (
 BUFFER_POOL DEFAULT
 )
-PARTITION BY RANGE (colum1_date)
+PARTITION BY RANGE (order_date)  //RANGE分区类型
 (
 PARTITION partition_before_2016 VALUES LESS THAN (
 TO_DATE(' 2016-01-01 00: 00: 00', 'SYYYY-MM-DD HH24: MI: SS',
@@ -43,11 +43,12 @@ PARTITION partition_before_2018 VALUES LESS THAN (
 TO_DATE(' 2018-01-01 00: 00: 00', 'SYYYY-MM-DD HH24: MI: SS',
 'NLS_CALENDAR=GREGORIAN'))TABLESPACE USERS02
 );
+```
 ![image](https://github.com/wangmingran9527/oracle/blob/master/test3/2.PNG)
 
 
 创建order_details表的语句如下：
-
+```sql
 CREATE TABLE order_details
 (
 id NUMBER(10,0)NOT NULL,
@@ -65,10 +66,12 @@ INITRANS 1
 STORAGE( BUFFER_POOL DEFAULT )
 NOCOMPRESS NOPARALLEL
 PARTITION BY REFERENCE (order_details_fk1);
+```
 ![image](https://github.com/wangmingran9527/oracle/blob/master/test3/3.PNG)
 ## 录入代码
 ```sql
 INSERT INTO orders(order_id,customer_name, customer_tel, order_date, employee_id, trade_receivable, discount) VALUES('001','wangmingrang', '1828385', to_date ( '2016-12-20 18:31:34' , 'YYYY-MM-DD HH24:MI:SS' ), 001, 111, 222);
+```
 ![image](https://github.com/wangmingran9527/oracle/blob/master/test3/4.PNG)
 ![image](https://github.com/wangmingran9527/oracle/blob/master/test3/6.PNG)
 
