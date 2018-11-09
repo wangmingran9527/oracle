@@ -72,8 +72,8 @@ PARTITION BY REFERENCE (order_details_fk1);
 ```sql
 INSERT INTO orders(order_id,customer_name, customer_tel, order_date, employee_id, trade_receivable, discount) VALUES('001','wangmingrang', '1828385', to_date ( '2016-12-20 18:31:34' , 'YYYY-MM-DD HH24:MI:SS' ), 001, 111, 222);
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test3/4.PNG)
 ![image](https://github.com/wangmingran9527/oracle/blob/master/test3/6.PNG)
+![image](https://github.com/wangmingran9527/oracle/blob/master/test3/4.PNG)
 ##查看数据库使用情况
 ```sql
 SQL>SELECT tablespace_name,FILE_NAME,BYTES/1024/1024 MB,MAXBYTES/1024/1024 MAX_MB,autoextensible FROM dba_data_files  WHERE  tablespace_name='USERS';
@@ -88,3 +88,5 @@ SQL>SELECT a.tablespace_name "表空间名",Total/1024/1024 "大小MB",
  where  a.tablespace_name = b.tablespace_name;
  ```
 ![image](https://github.com/wangmingran9527/oracle/blob/master/test3/5.PNG)
+##执行计划分析
+表中的数据量不断增多，查询数据的速度就会愈来愈变慢，应用程序的性能就会下降，这时就应该考虑对表进行分区。表进行分区后，逻辑上表仍然是一张完整的表，只是将--表中的数据在物理上存放到多个表空间(物理文件上)，这样查询数据时，不至于每次都扫描整张表。访问数据有两种方式，一是全表扫，二是先走索引、再通过索引返--回的不分区表全表扫时，分区表快。分区表扫描的只是几个分区而不是全表，很显然扫描的数据量小，表里存的数据越多这个优势越明显。
