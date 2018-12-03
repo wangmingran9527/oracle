@@ -186,7 +186,7 @@ LOB (PHOTO) STORE AS SYS_LOB0000092017C00009$$
  )
 );
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/3.PNG)<br>
 创建索引：
 ```sql
 CREATE INDEX EMPLOYEES_INDEX1_NAME ON EMPLOYEES (NAME ASC)
@@ -269,14 +269,14 @@ STORAGE
   BUFFER_POOL DEFAULT
 );
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/4.PNG)<br>
 ```sql
 ALTER TABLE PRODUCTS
 ADD CONSTRAINT PRODUCTS_CHK1 CHECK
 (PRODUCT_TYPE IN ('耗材', '手机', '电脑'))
 ENABLE;
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/5.PNG)<br>
 order表
 ```sql
 CREATE GLOBAL TEMPORARY TABLE "ORDER_ID_TEMP"
@@ -336,7 +336,7 @@ STORAGE
 NOCOMPRESS NO INMEMORY
 );
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/6.PNG)<br>
 创建本地分区索引ORDERS_INDEX_DATE：
 ```sql
 CREATE INDEX ORDERS_INDEX_DATE ON ORDERS (ORDER_DATE ASC)
@@ -374,7 +374,9 @@ STORAGE
   BUFFER_POOL DEFAULT
 )
 NOPARALLEL;
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+```
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/7.PNG)<br>
+```sql
 CREATE INDEX ORDERS_INDEX_CUSTOMER_NAME ON ORDERS (CUSTOMER_NAME ASC)
 NOLOGGING
 TABLESPACE USERS
@@ -389,8 +391,9 @@ STORAGE
   BUFFER_POOL DEFAULT
 )
 NOPARALLEL;
-
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+```
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/8.PNG)<br>
+```sql
 CREATE UNIQUE INDEX ORDERS_PK ON ORDERS (ORDER_ID ASC)
 GLOBAL PARTITION BY HASH (ORDER_ID)
 (
@@ -412,7 +415,9 @@ STORAGE
   BUFFER_POOL DEFAULT
 )
 NOPARALLEL;
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+```
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/9.PNG)<br>
+```sql
 ALTER TABLE ORDERS
 ADD CONSTRAINT ORDERS_PK PRIMARY KEY
 (
@@ -431,7 +436,7 @@ REFERENCES EMPLOYEES
   EMPLOYEE_ID
 )
 ENABLE;
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+
 ALTER TABLE ORDERS
 ADD CONSTRAINT ORDERS_PK PRIMARY KEY
 (
@@ -450,7 +455,10 @@ REFERENCES EMPLOYEES
  EMPLOYEE_ID
 )
 ENABLE;
+```
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/10.PNG)<br>
 order_detail表
+```sql
 
 CREATE TABLE ORDER_DETAILS
 (
@@ -511,7 +519,7 @@ PARTITION BY REFERENCE (ORDER_DETAILS_FK1)
 )
 ;
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+
 创建order_details索引
 ```sql
 CREATE UNIQUE INDEX ORDER_DETAILS_PK ON ORDER_DETAILS (ID ASC)
@@ -529,7 +537,6 @@ STORAGE
 )
 NOPARALLEL;
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
 ```sql
 ALTER TABLE ORDER_DETAILS
 ADD CONSTRAINT ORDER_DETAILS_PK PRIMARY KEY
@@ -550,8 +557,9 @@ ALTER TABLE ORDER_DETAILS
 ADD CONSTRAINT ORDER_DETAILS_PRODUCT_NUM CHECK
 (Product_Num>0)
 ENABLE;
+```
 创建三个触发器：
-
+```sql
 CREATE OR REPLACE EDITIONABLE TRIGGER "ORDERS_TRIG_ROW_LEVEL"
 BEFORE INSERT OR UPDATE OF DISCOUNT ON "ORDERS"
 FOR EACH ROW --行级触发器
@@ -569,7 +577,7 @@ BEGIN
  end if;
 END;
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+
 ```sql
 ALTER TRIGGER "ORDERS_TRIG_ROW_LEVEL" DISABLE;
 CREATE OR REPLACE EDITIONABLE TRIGGER "ORDER_DETAILS_ROW_TRIG"
@@ -662,7 +670,7 @@ insert into products (product_name,product_type) values ('phone3','手机');
 insert into products (product_name,product_type) values ('paper1','耗材');
 insert into products (product_name,product_type) values ('paper2','耗材');
 insert into products (product_name,product_type) values ('paper3','耗材');
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+
 插入订单数据
 
 declare
@@ -729,12 +737,12 @@ ADD PARTITION PARTITION_BEFORE_2018 VALUES LESS THAN (TO_DATE(' 2018-01-01 00:00
 ALTER INDEX ORDERS_INDEX_DATE
 MODIFY PARTITION PARTITION_BEFORE_2018
 NOCOMPRESS;
-查询测试
-
-select * from ORDERS where  order_id=1;
-select * from ORDER_DETAILS where  order_id=1;
-select * from VIEW_ORDER_DETAILS where order_id=1;
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test4/2.PNG)<br>
+搜索员工
+```sql
+select * from empolyees where  order_id=1;
+
+```
+![image](https://github.com/wangmingran9527/oracle/blob/master/test4/11.PNG)<br>
 
 
