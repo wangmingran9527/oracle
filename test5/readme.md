@@ -46,7 +46,7 @@ create or replace PACKAGE MyPack IS
   FUNCTION Get_SaleAmount(V_DEPARTMENT_ID NUMBER) RETURN NUMBER;
   PROCEDURE Get_Employees(V_EMPLOYEE_ID NUMBER);
 END MyPack; 
-![image](https://github.com/wangmingran9527/oracle/blob/master/test3/22.PNG)
+![image](https://github.com/wangmingran9527/oracle/blob/master/test5/22.PNG)
 在MyPack中创建包、函数SaleAmount和一个存储过程
 ```sql
  create or replace PACKAGE BODY MyPack IS
@@ -77,7 +77,7 @@ END MyPack;
     END;
 END MyPack;
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test3/33.PNG)
+![image](https://github.com/wangmingran9527/oracle/blob/master/test5/33.PNG)
 过程Get_Employees()测试代码：
 ```sql
 set serveroutput on
@@ -90,5 +90,5 @@ BEGIN
   MYPACK.Get_Employees (  V_EMPLOYEE_ID => V_EMPLOYEE_ID) ;    
 END;
 ```
-![image](https://github.com/wangmingran9527/oracle/blob/master/test3/44.PNG)
+![image](https://github.com/wangmingran9527/oracle/blob/master/test5/44.PNG)
 
